@@ -31,9 +31,12 @@ initializeDBAndserver()
 
 app.get('/players/', async (request, response) => {
   const getPlayersQuery = `
-      SELECT *
-      FROM cricket_team
-      ORDER BY player_id;`
+      SELECT
+      *
+      FROM
+      cricket_team
+      ORDER BY
+      player_id;
   const playersArray = await db.all(getPlayersQuery)
   response.send(playersArray)
 })
@@ -59,11 +62,14 @@ app.post('/players/', async (request, response) => {
 app.get('/players/:playerId/', async (request, response) => {
   const {playerId} = request.params
   const getPlayerQuery = `
-      SELECT *
-      FROM cricket_team
-      WHERE player_id = ${playerId};`
+      SELECT 
+      *
+      FROM 
+      cricket_team
+      WHERE
+      player_id = ${playerId};`
 
-  const player = await db.all(getPlayerQuery)
+  const player = await db.get(getPlayerQuery)
   response.send(player)
 })
 
@@ -101,3 +107,5 @@ app.delete('/players/:playerId/', async (request, response) => {
   await db.run(deletePlayerQuery)
   response.send('Player Removed')
 })
+
+module.exports = app;
